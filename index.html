@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <script src="angular.min.js"></script>
+</head>
+<body ng-app="myapp" ng-controller="mycontrol">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="">Keyword</label>
+                    <input type="text" ng-model="searchText" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">John Doe</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet 
+                            consectetur adipisicing elit.</p>
+                        <a href="#" class="btn btn-primary">See Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3>User Information</h3>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in users | filter:searchText">
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var app = angular.module('myapp', []);
+    app.controller('mycontrol', function($scope, $http) {
+        $scope.items = ["Jerome"];
+        $scope.add = function() {
+            // alert($scope.name);
+            $scope.items.push($scope.name);
+        }
+
+        $http({
+            method: 'GET',
+            url: 'users.json'
+        }).then(function(response) {
+            $scope.users = response.data;
+        },function(response){
+            console.log(response);
+        });
+
+    });
+    
+
+</script>
+
+</body>
+</html>
